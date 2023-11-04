@@ -1,3 +1,8 @@
+import 'dart:ui';
+import 'package:weather_app/container.dart';
+
+import 'addinfo.dart';
+
 import 'package:flutter/material.dart';
 
 class WeatherUI extends StatefulWidget {
@@ -8,90 +13,11 @@ class WeatherUI extends StatefulWidget {
 }
 
 class _WeatherUIaState extends State<WeatherUI> {
-  Widget addInfo(
-      {required IconData icon, required String data, required String amt}) {
-    return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 32),
-      child: Column(
-        children: [
-          Icon(
-            icon,
-            size: 20,
-            color: Colors.white,
-          ),
-          const SizedBox(
-            height: 8,
-          ),
-          Text(
-            data,
-            style: const TextStyle(
-              fontSize: 15,
-              color: Colors.white,
-            ),
-          ),
-          const SizedBox(
-            height: 8,
-          ),
-          Text(
-            amt.toString(),
-            style: const TextStyle(
-              fontSize: 15,
-              color: Colors.white,
-            ),
-          ),
-        ],
-      ),
-    );
-  }
-
-  Widget container(
-      {required String time, required IconData icon, required String weather}) {
-    return Container(
-      alignment: Alignment.center,
-      height: 120,
-      width: 100,
-      decoration: BoxDecoration(
-        color: const Color.fromARGB(255, 88, 81, 81),
-        borderRadius: BorderRadius.circular(15),
-      ),
-      child: Column(
-        children: [
-          const SizedBox(
-            height: 10,
-          ),
-          Text(
-            time,
-            style: const TextStyle(color: Colors.white, fontSize: 20),
-          ),
-          const SizedBox(
-            height: 8,
-          ),
-          Icon(
-            icon,
-            color: Colors.white,
-            size: 40,
-          ),
-          const SizedBox(
-            height: 8,
-          ),
-          Text(
-            weather,
-            style: const TextStyle(
-              color: Colors.white,
-              fontSize: 17,
-            ),
-          ),
-        ],
-      ),
-    );
-  }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: const Color.fromARGB(255, 47, 40, 40),
       appBar: AppBar(
-        backgroundColor: const Color.fromARGB(255, 47, 40, 40),
+        backgroundColor: Colors.transparent,
         elevation: 0,
         centerTitle: true,
         title: const Text(
@@ -102,129 +28,161 @@ class _WeatherUIaState extends State<WeatherUI> {
           ),
         ),
         actions: [
-          IconButton(
-            onPressed: () {},
-            icon: const Icon(Icons.refresh),
-            style: IconButton.styleFrom(iconSize: 3),
+          Padding(
+            padding: const EdgeInsets.all(12.0),
+            child: InkWell(
+              onTap: () {},
+              radius: 10,
+              customBorder: const CircleBorder(),
+              child: const Icon(Icons.refresh),
+            ),
           ),
         ],
       ),
-      body: Column(
-        mainAxisAlignment: MainAxisAlignment.start,
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          const SizedBox(height: 20),
-          Container(
-            height: 175,
-            width: 350,
-            alignment: Alignment.center,
-            margin: const EdgeInsets.symmetric(horizontal: 28),
-            decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(15),
-              color: const Color.fromARGB(255, 88, 81, 81),
-            ),
-            child: const Column(
-              mainAxisAlignment: MainAxisAlignment.start,
-              children: [
-                SizedBox(
-                  height: 15,
+      body: SingleChildScrollView(
+        scrollDirection: Axis.vertical,
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.start,
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Padding(
+              padding: const EdgeInsets.only(
+                top: 10,
+                left: 30,
+                right: 30,
+              ),
+              child: Container(
+                width: double.infinity,
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(20),
                 ),
-                Text(
-                  '300.67 F',
-                  style: TextStyle(
-                      color: Colors.white,
-                      fontSize: 30,
-                      fontWeight: FontWeight.bold),
-                ),
-                SizedBox(
-                  height: 10,
-                ),
-                Icon(
-                  Icons.cloud,
-                  color: Colors.white,
-                  size: 60,
-                ),
-                SizedBox(
-                  height: 10,
-                ),
-                Text(
-                  'Rain',
-                  style: TextStyle(
-                    color: Colors.white,
-                    fontSize: 17,
+                child: Card(
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(20),
                   ),
-                )
-              ],
-            ),
-          ),
-          const SizedBox(
-            height: 20,
-          ),
-          const Padding(
-            padding: EdgeInsets.only(left: 32),
-            child: Text(
-              'Weather Forecast',
-              style: TextStyle(
-                color: Colors.white,
-                fontSize: 25,
-                fontWeight: FontWeight.bold,
+                  child: ClipRRect(
+                    borderRadius: BorderRadius.circular(20),
+                    child: BackdropFilter(
+                      filter: ImageFilter.blur(sigmaX: 5, sigmaY: 5),
+                      child: const Padding(
+                        padding: EdgeInsets.symmetric(vertical: 25),
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          children: [
+                            Text(
+                              '300.67 k',
+                              style: TextStyle(
+                                  color: Colors.white,
+                                  fontSize: 30,
+                                  fontWeight: FontWeight.bold),
+                            ),
+                            SizedBox(
+                              height: 10,
+                            ),
+                            Icon(
+                              Icons.cloud,
+                              color: Colors.white,
+                              size: 60,
+                            ),
+                            SizedBox(
+                              height: 10,
+                            ),
+                            Text(
+                              'Rain',
+                              style: TextStyle(
+                                color: Colors.white,
+                                fontSize: 17,
+                              ),
+                            )
+                          ],
+                        ),
+                      ),
+                    ),
+                  ),
+                ),
               ),
             ),
-          ),
-          const SizedBox(
-            height: 20,
-          ),
-          SingleChildScrollView(
-            scrollDirection: Axis.horizontal,
-            child: Row(
+            const SizedBox(
+              height: 20,
+            ),
+            const Padding(
+              padding: EdgeInsets.only(left: 32),
+              child: Text(
+                'Weather Forecast',
+                style: TextStyle(
+                  color: Colors.white,
+                  fontSize: 25,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+            ),
+            const SizedBox(
+              height: 15,
+            ),
+            const SingleChildScrollView(
+              scrollDirection: Axis.horizontal,
+              child: Row(
+                children: [
+                  SizedBox(
+                    width: 20,
+                  ),
+                  CustContainer(
+                    time: '09:00',
+                    icon: Icons.cloud,
+                    weather: '302.17',
+                  ),
+                  CustContainer(
+                    time: '09:00',
+                    icon: Icons.cloud,
+                    weather: '302.17',
+                  ),
+                  CustContainer(
+                    time: '09:00',
+                    icon: Icons.cloud,
+                    weather: '302.17',
+                  ),
+                  CustContainer(
+                    time: '09:00',
+                    icon: Icons.cloud,
+                    weather: '302.17',
+                  ),
+                  CustContainer(
+                    time: '09:00',
+                    icon: Icons.cloud,
+                    weather: '302.17',
+                  ),
+                  SizedBox(
+                    width: 10,
+                  ),
+                ],
+              ),
+            ),
+            const SizedBox(height: 20),
+            const Padding(
+              padding: EdgeInsets.only(left: 32),
+              child: Text(
+                'Additional Information',
+                style: TextStyle(
+                  fontSize: 25,
+                  fontWeight: FontWeight.bold,
+                  color: Colors.white,
+                  letterSpacing: 0.3,
+                ),
+              ),
+            ),
+            const SizedBox(
+              height: 8,
+            ),
+            const Row(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
-                const SizedBox(
-                  width: 20,
-                ),
-                container(time: '09:00', icon: Icons.cloud, weather: '302.17'),
-                const SizedBox(
-                  width: 5,
-                ),
-                container(time: '09:00', icon: Icons.cloud, weather: '302.17'),
-                const SizedBox(
-                  width: 5,
-                ),
-                container(time: '09:00', icon: Icons.cloud, weather: '302.17'),
-                const SizedBox(
-                  width: 5,
-                ),
-                container(time: '09:00', icon: Icons.cloud, weather: '302.17'),
-                const SizedBox(
-                  width: 5,
-                ),
-                container(time: '09:00', icon: Icons.cloud, weather: '302.17'),
+                AddInfo(icon: Icons.water_drop, data: 'Humidity', amt: '90'),
+                AddInfo(icon: Icons.air, data: 'Wind Speed', amt: '7.67'),
+                AddInfo(icon: Icons.beach_access, data: 'pressure', amt: '90')
               ],
             ),
-          ),
-          const SizedBox(height: 20),
-          const Padding(
-            padding: EdgeInsets.only(left: 32),
-            child: Text(
-              'Additional Information',
-              style: TextStyle(
-                fontSize: 25,
-                fontWeight: FontWeight.bold,
-                color: Colors.white,
-                letterSpacing: 0.3,
-              ),
-            ),
-          ),
-          const SizedBox(
-            height: 8,
-          ),
-          Row(
-            children: [
-              addInfo(icon: Icons.water_drop, data: 'Humidity', amt: '90'),
-              addInfo(icon: Icons.air, data: 'Wind Speed', amt: '7.67'),
-              addInfo(icon: Icons.beach_access, data: 'pressure', amt: '90'),
-            ],
-          )
-        ],
+          ],
+        ),
       ),
     );
   }

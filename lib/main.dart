@@ -9,6 +9,10 @@ class Weather extends StatelessWidget {
   const Weather({super.key});
   @override
   Widget build(BuildContext context) {
-    return const MaterialApp(home: WeatherUI());
+    return MaterialApp(
+      debugShowCheckedModeBanner: false,
+      theme: ThemeData.dark(),
+      home: const WeatherUI(),
+    );
   }
 }
