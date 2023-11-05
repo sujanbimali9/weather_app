@@ -1,5 +1,6 @@
 import 'dart:convert';
 import 'dart:ui';
+import 'package:intl/intl.dart';
 import 'package:weather_app/container.dart';
 import 'package:http/http.dart' as http;
 import 'addinfo.dart';
@@ -18,7 +19,7 @@ class _WeatherUIaState extends State<WeatherUI> {
   dynamic humidity = '0';
   dynamic windSpeed = '0';
   dynamic pressure = '0';
-  dynamic date = '';
+  // dynamic date = '';
   dynamic weather = 'loading...';
 
   IconData icon(String wtr) {
@@ -34,11 +35,12 @@ class _WeatherUIaState extends State<WeatherUI> {
   }
 
   Future<Map<String, dynamic>> getCurrentWeather() async {
-    String location = 'London';
+    String location = 'Damak';
+    String countrycode = 'NP';
     try {
       final result = await http.get(
         Uri.parse(
-            'https://api.openweathermap.org/data/2.5/forecast?q=$location,uk&APPID=$apikey'),
+            'https://api.openweathermap.org/data/2.5/forecast?q=$location,$countrycode&APPID=$apikey'),
       );
       final data = jsonDecode(result.body);
       if (data['cod'] != '200') {
@@ -183,25 +185,21 @@ class _WeatherUIaState extends State<WeatherUI> {
                   const SizedBox(
                     height: 15,
                   ),
-                  SingleChildScrollView(
-                    scrollDirection: Axis.horizontal,
-                    child: Row(
-                      children: [
-                        const SizedBox(
-                          width: 20,
-                        ),
-                        for (int i = 1; i < 8; i++)
-                          CustContainer(
-                            time: data['list'][i]['dt_txt']
-                                .toString()
-                                .substring(11, 16),
-                            icon: icon(data['list'][i]['weather'][0]['main']),
-                            weather: data['list'][i]['main']['temp'].toString(),
-                          ),
-                        const SizedBox(
-                          width: 10,
-                        ),
-                      ],
+                  SizedBox(
+                    height: 130,
+                    child: ListView.builder(
+                      scrollDirection: Axis.horizontal,
+                      itemCount: 10,
+                      itemBuilder: (contex, index) {
+                        return CustContainer(
+                          time: DateFormat.Hm().format(DateTime.parse(
+                              data['list'][index + 1]['dt_txt'])),
+                          icon: icon(
+                              data['list'][index + 1]['weather'][0]['main']),
+                          weather: data['list'][index + 1]['main']['temp']
+                              .toString(),
+                        );
+                      },
                     ),
                   ),
                   const SizedBox(height: 20),

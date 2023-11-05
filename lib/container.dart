@@ -27,6 +27,8 @@ class CustContainer extends StatelessWidget {
                   color: Colors.white,
                   fontSize: 20,
                 ),
+                maxLines: 1,
+                overflow: TextOverflow.ellipsis,
               ),
               const SizedBox(
                 height: 8,
