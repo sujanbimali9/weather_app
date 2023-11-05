@@ -5,12 +5,11 @@ class AddInfo extends StatelessWidget {
   final String data;
   final String amt;
   const AddInfo({
-    Key? key,
+    super.key,
     required this.icon,
     required this.data,
     required this.amt,
-  }) : super(key: key);
-
+  });
   @override
   Widget build(BuildContext context) {
     return Padding(
