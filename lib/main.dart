@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:weather_app/location_screen.dart';
 import './weather.dart';
 
 void main() {
@@ -12,6 +13,10 @@ class Weather extends StatelessWidget {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       theme: ThemeData.dark(),
+      routes: {
+        '/home': (context) => const WeatherUI(),
+        '/location': (context) => const LocationScreen(),
+      },
       home: const WeatherUI(),
     );
   }
