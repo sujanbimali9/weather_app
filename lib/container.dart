@@ -3,12 +3,9 @@ import 'package:flutter/material.dart';
 class CustContainer extends StatelessWidget {
   final String time;
   final IconData icon;
-  final String weather;
+  final String temp;
   const CustContainer(
-      {super.key,
-      required this.time,
-      required this.icon,
-      required this.weather});
+      {super.key, required this.time, required this.icon, required this.temp});
 
   @override
   Widget build(BuildContext context) {
@@ -42,7 +39,7 @@ class CustContainer extends StatelessWidget {
                 height: 8,
               ),
               Text(
-                weather,
+                temp,
                 style: const TextStyle(
                   color: Colors.white,
                   fontSize: 13,
